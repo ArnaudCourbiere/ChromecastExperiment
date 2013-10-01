@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity implements MediaRouteAdapter 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()");
         setContentView(R.layout.activity_main);
 
         mSessionListener = new SessionListener();
@@ -80,6 +81,7 @@ public class MainActivity extends FragmentActivity implements MediaRouteAdapter 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu()");
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem mediaRouteMenuItem = menu.findItem(R.id.media_route_menu_item);
         mMediaRouteButton = (MediaRouteButton) mediaRouteMenuItem.getActionView();
@@ -175,7 +177,11 @@ public class MainActivity extends FragmentActivity implements MediaRouteAdapter 
 
         @Override
         public void onSessionStartFailed(SessionError sessionError) {
-            Log.d(TAG, "SessionListener.onStartFailed: " + sessionError.toString());
+            if (sessionError != null) {
+                Log.d(TAG, "SessionListener.onStartFailed: " + sessionError.toString());
+            } else {
+                Log.d(TAG, "SessionListener.onStartFailed");
+            }
         }
 
         @Override
@@ -183,7 +189,7 @@ public class MainActivity extends FragmentActivity implements MediaRouteAdapter 
             if (sessionError != null) {
                 Log.d(TAG, "SessionListener.onEnded: " + sessionError.toString());
             } else {
-                Log.d(TAG, "SessionListener.onEnded.");
+                Log.d(TAG, "SessionListener.onEnded");
             }
         }
     }
@@ -196,7 +202,7 @@ public class MainActivity extends FragmentActivity implements MediaRouteAdapter 
 
         @Override
         public void onMessageReceived(JSONObject jsonObject) {
-
+            Log.d(TAG, "onMessageReceived()");
         }
     }
 }
